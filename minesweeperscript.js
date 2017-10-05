@@ -1,3 +1,4 @@
+
 var baseUrl = 'http://73.211.130.59:3000'
 
 var height = 16;
@@ -50,7 +51,8 @@ var initializeBoard = function() {
 };
 
 
-
+//Initiate is called in two different situations
+//
 var initiate = function() {
     gameOver = false;
     generated = false;
@@ -87,6 +89,8 @@ var initiate = function() {
 
 }
 
+//This function draws the intial unclicked boxes onto the canvas
+//It is called whenever the game is reset
 var drawCanvas = function() {
     c.clearRect(0, 0, 600, 600);
     for (var i = 0; i < height; i++) {
@@ -96,6 +100,10 @@ var drawCanvas = function() {
     }
 }
 
+//This function sets indexes on the board to be equal to bombs.
+//It is called when the first click is done.
+//It will not generate a bomb on the index that was clicked
+//Parameters: clicked index
 var generateBombs = function(i, j) {
     //console.log('cannot be on' + i + " " + j);
     for (var count = 0; count < bombCount; count++) {
@@ -110,6 +118,10 @@ var generateBombs = function(i, j) {
     }
 }
 
+//This function fills the non-bomb indexes in the board
+//It takes in no parameters and returns nothing
+//Goes through one index at a time, checks if it's a bomb
+//If it's not a bomb, it calls getNearCount to calculate the apropriate number.
 var generateNumbers = function() {
     for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
@@ -120,6 +132,12 @@ var generateNumbers = function() {
     }
 }
 
+
+//This function is called by generate numbers
+//Parameters: a spot on the board
+//Returns: How many bombs are touching the passed in index
+//Purpose: This is called when initializing the board. The board is only filled with bombs at this point.
+//This function is called many times to calculate each individual bomb count
 var getNearCount = function(i, j) {
     var result = 0;
     for (var row = i - 1; row < i + 2; row++) {
@@ -134,6 +152,13 @@ var getNearCount = function(i, j) {
     return result;
 }
 
+//This function is called after a click happens
+//It sets the apropriate squares to be visible
+//If it is already set to visibile it immediately returns.
+//If the index that was clicked on has no nearby bombs i.e. the value is 0
+//  a recursive depth first traversal of nearby blocks are done
+//  in which all touching blocks with value 0 are shown and all the blocks touching the revealed 0's are shown
+//Parameters: i , j (the index clicked)
 var setVisible = function(i, j) {
     var zero = false;
     if (visible[i][j] === 1) {

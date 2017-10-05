@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>MineSweeper</title>
+  <link href="minesweeperStyle.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="app">
+      <h1>Minesweeper by Alex Sopha</h1>
+      <button id="reset">Reset</button>
+
+      <div id="canvas">
+        <canvas id="gameBoard" width="600" height="320"></canvas>
+  
+        <p>alt-leftclick to set flags</p>
+        <h2 id="result"></h2>
+      </div>
+      <form>
+        <input type="radio" name="difficulty" value="beginner"> Beginner<br>
+        <input type="radio" name="difficulty" value="intermediate" checked> Intermediate<br>
+        <input type="radio" name="difficulty" value="expert"> Expert
+      </form>
+
+
+
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="minesweeperscript2.js"> </script>
+</body>
+
+</html>

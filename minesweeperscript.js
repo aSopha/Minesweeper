@@ -287,15 +287,18 @@ class Minefield {
   }
 
 }
-
 var resetButton = document.getElementById("reset");
 var result = document.getElementById("result");
 resetButton.onclick = function(e) {
+    reset();
+};
+
+function reset() {
     let difficulty = document.getElementsByName('difficulty');
     for(let i = 0; i < difficulty.length; i++) {
       if(difficulty[i].checked) {
-        console.log(difficulty[i].value);
-        setDifficulty(difficulty[i].value);
+        console.log(difficulty[i].id);
+        setDifficulty(difficulty[i].id);
       }
     }
     //console.log('reset');
@@ -305,10 +308,8 @@ resetButton.onclick = function(e) {
     field.initiate();
 
     result.innerHTML = "";
-
-
   //  initiate();
-};
+}
 
 var setDifficulty = function(difficulty) {
   if(difficulty == 'beginner') {

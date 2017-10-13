@@ -5,22 +5,25 @@
 }
 h1 {
     font-size: 25px;
+    display: block;
+    margin-bottom: 0px;
+
+    font-weight: bold;
 }
 
-#reset {
-    position: absolute;
+#gameBoard {
+    margin: 0;
 
-    left: 360px;
-    top: 8px;
 }
+#canvas {
+    margin: 0;
+}
+
 #result {
     position: relative;
     left: 110px;
 
 }
 p {
-    position: absolute;
-
-    left: 420px;
-    top: 8px;
+    font-weight: bold;
 }

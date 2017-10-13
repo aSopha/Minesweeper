@@ -83,7 +83,9 @@ class Minefield {
   }
 
   setFlag(i, j) {
-
+      if(i >= this.height || j >= this.width) {
+          return;
+      }
       if (this.visible[i][j] === 1) {
           console.log('either already a flag or is already revealed');
           return;

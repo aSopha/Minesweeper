@@ -68,6 +68,7 @@ class Minefield {
     initiate() {
         this.gameOver = false;
         this.generated = false;
+        this.resizeBoard();
         this.drawCanvas();
         this.initializeBoard();
     }
@@ -318,6 +319,13 @@ class Minefield {
         this.win();
     }
 
+    resizeBoard(){
+        let resize = document.getElementById("gameBoard")
+        resize.height = this.height*this.imgLength;
+        resize.width = this.width*this.imgLength;
+        console.log(resize.height, resize.width);
+    }
+
 }
 var resetButton = document.getElementById("reset");
 var result = document.getElementById("result");
@@ -369,7 +377,7 @@ var setDifficulty = function(difficulty) {
 
 
 let field = new Minefield(gameHeight, gameWidth, gameBombCount);
-canvas.onclick = function(e) {
+gameBoard.onclick = function(e) {
     field.onclick(e);
 }
 field.initializeBoard();

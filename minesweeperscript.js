@@ -318,6 +318,15 @@ class Minefield {
         }
         this.win();
     }
+    onRightClick(e) {
+        let mouseX = e.pageX;
+        let mouseY = e.pageY - 28;
+
+        let clickedCol = Math.floor(mouseY / this.imgLength);
+        let clickedRow = Math.floor(mouseX / this.imgLength);
+
+        this.setFlag(clickedCol, clickedRow);
+    }
 
     resizeBoard(){
         let resize = document.getElementById("gameBoard")
@@ -380,6 +389,11 @@ let field = new Minefield(gameHeight, gameWidth, gameBombCount);
 gameBoard.onclick = function(e) {
     field.onclick(e);
 }
+
+gameBoard.oncontextmenu = function (e) { 
+   field.onRightClick(e);
+   return false;
+};
 field.initializeBoard();
 
 

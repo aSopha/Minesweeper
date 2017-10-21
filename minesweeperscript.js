@@ -14,6 +14,11 @@ let gameHeight = 16;
 let gameWidth = 16;
 let gameBombCount = 40;
 
+let seconds = 0;
+//let counter = 0;
+
+let paused = true;
+
 class Minefield {
 
     constructor(height, width, bombCount) {
@@ -237,14 +242,14 @@ class Minefield {
                 column = index[1];
 
             }
-                this.board[row][column] = -1
+            this.board[row][column] = -1
         }
         console.log(this.bombCount);
     }
 
 
-    findValidIndex(row,column, i, j) {
-        while(true) {
+    findValidIndex(row, column, i, j) {
+        while (true) {
             column++;
             if (column >= this.width) {
                 column = 0;
@@ -253,8 +258,8 @@ class Minefield {
             if (row >= this.height) {
                 row = 0;
             }
-            if(!(i === row && j === column)) {
-                if(this.board[row][column] != -1) {
+            if (!(i === row && j === column)) {
+                if (this.board[row][column] != -1) {
                     return [row, column];
                 }
             }
@@ -289,6 +294,7 @@ class Minefield {
         this.gameOver = true;
         this.setBombsVisible();
         result.innerHTML = "You lose!";
+
 
     }
     onclick(e) {
@@ -328,17 +334,19 @@ class Minefield {
         this.setFlag(clickedCol, clickedRow);
     }
 
-    resizeBoard(){
+    resizeBoard() {
         let resize = document.getElementById("gameBoard")
-        resize.height = this.height*this.imgLength;
-        resize.width = this.width*this.imgLength;
+        resize.height = this.height * this.imgLength;
+        resize.width = this.width * this.imgLength;
         console.log(resize.height, resize.width);
     }
 
 }
 var resetButton = document.getElementById("reset");
 var result = document.getElementById("result");
+var timer = document.getElementById("timer");
 resetButton.onclick = function(e) {
+
     reset();
 };
 
@@ -351,6 +359,10 @@ function reset() {
             setDifficulty(difficulty[i].id);
         }
     }
+
+    seconds = 0;
+    timer.innerHTML = "0";
+    stopCycle();
     //console.log('reset');
 
     field.drawCanvas();
@@ -387,24 +399,50 @@ var setDifficulty = function(difficulty) {
 
 let field = new Minefield(gameHeight, gameWidth, gameBombCount);
 gameBoard.onclick = function(e) {
+    if(paused) {
+        startTimer();
+    }
+    paused = false;
+
+
     field.onclick(e);
 }
 
-gameBoard.oncontextmenu = function (e) { 
-   field.onRightClick(e);
-   return false;
+function startTimer() {
+    var counter = setInterval(function() {
+        if (paused || field.gameOver) {
+
+            clearInterval(counter);
+            return;
+        }
+        seconds++;
+        timer.innerHTML = seconds;
+        console.log(seconds);
+
+    }, 1000);
+
+}
+
+function stopCycle() {
+    paused = true;
+
+}
+
+
+
+gameBoard.oncontextmenu = function(e) {
+    field.onRightClick(e);
+    return false;
 };
 field.initializeBoard();
 
 
 field.unclickedImg.onload = function() {
     field.drawCanvas();
-
-
 }
-setTimeout(function() {
 
-}, 25);
+
+
 
 /*
 function sleep(50) {

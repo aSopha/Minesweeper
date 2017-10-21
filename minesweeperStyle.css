@@ -24,6 +24,10 @@ h1 {
     left: 110px;
 
 }
+
+#timer {
+    color: red;
+}
 p {
     font-weight: bold;
 }
